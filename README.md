@@ -1,2 +1,1 @@
-<< Hira Jamshed >>
-<< SI338 Fall 2025 >>
+This hosts my website
