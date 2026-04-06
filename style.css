@@ -22,13 +22,15 @@
     --accent: #f1c71d;   /* maize accent */
   }
 }
-html, body { margin: 0; padding: 0; }
+
 body {
-  font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  font: 18px/1.8 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
   background: var(--bg);
   color: var(--fg);
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 a { color: var(--link); text-underline-offset: 3px; }
 a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
@@ -101,8 +103,12 @@ header { display:flex; align-items:center; gap:1.2rem; margin-bottom: 1.5rem; }
 .badge {display:inline-flex; gap:.5ch; align-items:center; padding:.2rem .6rem; border-radius:999px; background: var(--card); border:1px solid var(--border); font-size:.9rem; }
 
 /* Sections */
-section { margin-top: 2rem; }
-section h2 { font-size: 1.3rem; letter-spacing:.2px; margin: 0 0 .8rem; color: rgb(13, 13, 101);}
+section {
+  margin: 2rem auto;
+  padding: 0 1.2rem;
+  max-width: var(--maxw);
+}
+section h2 { font-size: 1.5rem; letter-spacing:.2px; margin: 0 0 .8rem; color: rgb(13, 13, 101);}
 .intro { background: var(--card); border:1px solid var(--border); border-radius: var(--radius); padding:1rem 1.2rem; }
 
 /* CV button aligned to the right inside the introduction card */
@@ -113,26 +119,21 @@ section h2 { font-size: 1.3rem; letter-spacing:.2px; margin: 0 0 .8rem; color: r
   .intro .cv-row { text-align: left; }
 }
 
-/* Projects grid */
-.grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
-.card { background: var(--card); border:1px solid var(--border); border-radius: var(--radius); padding: 1rem; }
-.card h3 { font-size: 1.1rem; margin:.2rem 0 .4rem; }
-.meta { color: var(--muted); font-size:0.95rem; margin-top: 0.2rem; margin-bottom: 0.2rem; }
-.actions { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:.8rem; }
-.btn { display:inline-flex; align-items:center; gap:.5ch; border:1px solid var(--border); background: #fff0; padding:.45rem .75rem; border-radius: 10px; text-decoration:none; }
-
 /* Publications (horizontal cards) */
 .hlist { display:flex; flex-direction:column; gap:1rem; }
 .hcard { display:flex; gap:1rem; align-items:flex-start; padding:1rem; border:1px solid var(--border); border-radius: var(--radius); background: var(--card); }
 .hcard .stamp { flex:0 0 auto;  border-radius:12px; display:grid; place-items:center; /* border removed to avoid outline around emoji */ font-size: 1.4rem; border: none; background: transparent; }
 .hcard .content { flex:1 1 auto; min-width:0; }
-.hcard h3 { margin:.1rem 0 .2rem; font-size:1.1rem; }
-.hcard .meta { margin:.2rem 0 .4rem; }
+.hcard h3 { margin:.1rem 0 .2rem; font-size:1.2rem; }
+.hcard .meta { margin:.2rem 0 .4rem}
 .hcard p { margin:.2rem 0 .2rem; }
 @media (min-width: 760px) {
   .hlist { gap:1.2rem; }
   .hcard { padding:1rem 1.2rem; }
 }
+.meta { color: var(--muted); font-size:1rem; margin-top: 0.2rem; margin-bottom: 0.2rem; }
+.actions { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:.8rem; }
+.btn { display:inline-flex; align-items:center; gap:.5ch; border:1px solid var(--border); background: #fff0; padding:.45rem .75rem; border-radius: 10px; text-decoration:none; }
 
 /* Footer / Links */
 .links { display:flex; flex-wrap: wrap; gap:.6rem; }
@@ -146,7 +147,6 @@ section h2 { font-size: 1.3rem; letter-spacing:.2px; margin: 0 0 .8rem; color: r
   flex-direction: column;
   gap: 0.6rem;
 }
-
 .spotlight-item {
   display: flex;
   gap: 0.9rem;
@@ -159,12 +159,10 @@ section h2 { font-size: 1.3rem; letter-spacing:.2px; margin: 0 0 .8rem; color: r
   color: var(--fg);
   font-size: 0.98rem;
 }
-
 /* When JS marks an item single-line, vertically center content */
 .spotlight-item.single-line {
   --spotlight-align: center;
 }
-
 .spotlight-item .marker {
   flex: 0 0 46px;
   height: 46px;
@@ -177,8 +175,11 @@ section h2 { font-size: 1.3rem; letter-spacing:.2px; margin: 0 0 .8rem; color: r
   font-size: 0.95rem;
   box-shadow: 0 1px 0 rgba(0,0,0,0.04) inset;
 }
-
 .spotlight-item strong { color: var(--michigan-blue); }
+.spotlight-item:hover {
+  transform: translateY(-2px);
+  transition: transform 120ms ease;
+}
 
 /* make text flow nicely on small viewports */
 @media (max-width: 640px) {
@@ -186,17 +187,11 @@ section h2 { font-size: 1.3rem; letter-spacing:.2px; margin: 0 0 .8rem; color: r
   .spotlight-item .marker { flex-basis: 40px; height: 40px; font-size: 0.9rem; }
 }
 
-/* optional: subtle hover for interactive feel */
-.spotlight-item:hover {
-  transform: translateY(-2px);
-  transition: transform 120ms ease;
-}
-
 /* Print: hide nav‑like pieces, keep a clean CV‑ish page */
 @media print {
-  .badge, .actions, .linksbar { display:none !important; }
-  body { background:#fff; color:#000; }
-  a { color:#000; text-decoration: none; }
+  .badge, .actions, .linksbar { display: none; }
+  body { background: #fff; color: #000; }
+  a { color: #000; text-decoration: none; }
   .wrap { padding: 0; }
   .card, .intro { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
